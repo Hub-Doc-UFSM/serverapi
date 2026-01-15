@@ -1,4 +1,4 @@
-package com.hubdoc.serverapi.entities;
+package com.hubdoc.serverapi.domain.entities;
 
 import jakarta.persistence.*;
 
