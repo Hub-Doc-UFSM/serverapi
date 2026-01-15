@@ -1,15 +1,22 @@
 package com.hubdoc.serverapi.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "tb_caixa")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Caixa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(unique = true)
@@ -23,34 +30,4 @@ public class Caixa {
     @OneToMany(mappedBy = "caixa")
     private List<Maco> macosDaCaixa = new ArrayList<>();
 
-    public Caixa() {
-    }
-
-    public Caixa(Long id, String codigoEtiqueta, String localizacaoFisica, Contrato contrato, List<Maco> macosDaCaixa) {
-        this.id = id;
-        this.codigoEtiqueta = codigoEtiqueta;
-        this.localizacaoFisica = localizacaoFisica;
-        this.contrato = contrato;
-        this.macosDaCaixa = macosDaCaixa;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCodigoEtiqueta() {
-        return codigoEtiqueta;
-    }
-
-    public void setCodigoEtiqueta(String codigoEtiqueta) {
-        this.codigoEtiqueta = codigoEtiqueta;
-    }
-
-    public String getLocalizacaoFisica() {
-        return localizacaoFisica;
-    }
-
-    public void setLocalizacaoFisica(String localizacaoFisica) {
-        this.localizacaoFisica = localizacaoFisica;
-    }
 }
