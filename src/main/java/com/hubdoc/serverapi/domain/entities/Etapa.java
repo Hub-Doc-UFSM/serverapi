@@ -1,6 +1,5 @@
 package com.hubdoc.serverapi.domain.entities;
 
-import com.hubdoc.serverapi.domain.enums.StatusGlobal;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,28 +7,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_documento")
+@Table(name = "tb_etapa")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Documento {
-
+public class Etapa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @EqualsAndHashCode.Include
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "maco_id")
-    private Maco maco;
-    private String uuid;
-    private StatusGlobal statusGlobal;
+    private String nome;
 
-    @OneToOne(mappedBy = "documento", cascade = CascadeType.ALL)
-    private ParecerArquivistico parecerArquivistico;
+    @Column(columnDefinition = "TEXT")
+    private String descricao;
 
-    @OneToMany(mappedBy = "documento")
+    @OneToMany(mappedBy = "etapa")
+    private List<FluxoEtapas> etapasContrato = new ArrayList<>();
+
+    @OneToMany(mappedBy = "etapa")
     private List<EtapasRealizadas> etapasRealizadas = new ArrayList<>();
 }

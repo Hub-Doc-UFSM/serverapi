@@ -40,6 +40,8 @@ public class ParecerArquivistico {
     @JoinColumn(name = "id")
     private Documento documento;
 
-    //privata Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
 }

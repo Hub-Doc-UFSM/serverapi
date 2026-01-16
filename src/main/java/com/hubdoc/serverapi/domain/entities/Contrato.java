@@ -3,6 +3,7 @@ package com.hubdoc.serverapi.domain.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.swing.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,4 +32,6 @@ public class Contrato {
     @OneToMany(mappedBy = "contrato")
     private List<Caixa> caixas = new ArrayList<>();
 
+    @OneToMany(mappedBy = "contrato")
+    private List<FluxoEtapas> etapasContrato = new ArrayList<>();
 }
