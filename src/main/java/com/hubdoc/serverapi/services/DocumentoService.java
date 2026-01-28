@@ -20,6 +20,6 @@ public class DocumentoService {
     @Transactional(readOnly = true)
     public Page<DocumentoDTO> findAll(Pageable pageable){
         Page<Documento> result = repository.findAll(pageable);
-        return result.map(x -> new DocumentoDTO(x));
+        return result.map(DocumentoDTO::new);
     }
 }
