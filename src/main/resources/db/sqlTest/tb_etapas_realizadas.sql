@@ -1,0 +1,2 @@
+INSERT INTO sisrest.tb_etapas_realizadas (id, data_fim, data_inicio, observacao_tecnica, status, documento_id, etapa_id, usuario_id) VALUES (1, '2023-11-21 12:00:00.000000', '2023-11-21 08:00:00.000000', 'Higienização concluída com sucesso', 2, 2, 1, 2);
+INSERT INTO sisrest.tb_etapas_realizadas (id, data_fim, data_inicio, observacao_tecnica, status, documento_id, etapa_id, usuario_id) VALUES (2, null, '2023-11-22 09:00:00.000000', 'Iniciando reparo', 0, 2, 2, 3);
