@@ -1,29 +1,24 @@
 package com.hubdoc.serverapi.services;
 
-import com.hubdoc.serverapi.domain.entities.Documento;
 import com.hubdoc.serverapi.domain.entities.Orgao;
-import com.hubdoc.serverapi.dto.DocumentoDTO;
 import com.hubdoc.serverapi.dto.OrgaoDTO;
-import com.hubdoc.serverapi.mappers.DocumentoMapper;
 import com.hubdoc.serverapi.mappers.OrgaoMapper;
 import com.hubdoc.serverapi.repositories.OrgaoRepository;
 import com.hubdoc.serverapi.services.exceptions.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
+@RequiredArgsConstructor
 public class OrgaoService {
 
-    @Autowired
-    private OrgaoRepository repository;
-
-    @Autowired
-    private OrgaoMapper mapper;
+    private final OrgaoRepository repository;
+    private final OrgaoMapper mapper;
 
     @Transactional(readOnly = true)
     public OrgaoDTO findById(Long id) {
@@ -54,7 +49,7 @@ public class OrgaoService {
         return mapper.toDTO(orgao);
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
         if (!repository.existsById(id)) {
             throw new ResourceNotFoundException("Id do Orgão não encontrado!");

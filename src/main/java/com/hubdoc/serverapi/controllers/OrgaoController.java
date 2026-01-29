@@ -3,7 +3,7 @@ package com.hubdoc.serverapi.controllers;
 import com.hubdoc.serverapi.dto.OrgaoDTO;
 import com.hubdoc.serverapi.services.OrgaoService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +14,10 @@ import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/orgaos")
+@RequiredArgsConstructor
 public class OrgaoController {
 
-    @Autowired
-    private OrgaoService service;
+    private final OrgaoService service;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<OrgaoDTO> findById(@PathVariable Long id){
@@ -36,5 +36,15 @@ public class OrgaoController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newDto.getId()).toUri();
         return ResponseEntity.created(uri).body(newDto);
+    }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<OrgaoDTO> update(@PathVariable Long id, @Valid @RequestBody OrgaoDTO dto) {
+        OrgaoDTO newDto = service.update(id, dto);
+        return ResponseEntity.ok(newDto);
+    }
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
