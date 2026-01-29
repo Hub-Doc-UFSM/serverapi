@@ -23,7 +23,7 @@ public class OrgaoService {
     @Transactional(readOnly = true)
     public OrgaoDTO findById(Long id) {
         Orgao orgao = repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Id não encontrado!")
+                () -> new ResourceNotFoundException("Id do Orgão não encontrado!")
         );
         return new OrgaoDTO(orgao);
     }

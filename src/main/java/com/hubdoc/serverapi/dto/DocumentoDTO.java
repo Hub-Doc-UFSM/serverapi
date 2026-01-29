@@ -16,9 +16,5 @@ public class DocumentoDTO {
     private String uuid;
     private StatusGlobal statusGlobal;
 
-    public DocumentoDTO(Documento entity) {
-        this.id = entity.getId();
-        this.uuid = entity.getUuid();
-        this.statusGlobal = entity.getStatusGlobal();
-    }
+
 }

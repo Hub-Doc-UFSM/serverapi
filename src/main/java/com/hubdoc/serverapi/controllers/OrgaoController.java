@@ -27,7 +27,7 @@ public class OrgaoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<OrgaoDTO>> findAll(Pageable pageable){
+    public ResponseEntity<Page<OrgaoDTO>> findAll(Pageable pageable) {
         Page<OrgaoDTO> dto = service.findAll(pageable);
         return ResponseEntity.ok(dto);
     }

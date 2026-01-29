@@ -2,6 +2,7 @@ package com.hubdoc.serverapi.services;
 
 import com.hubdoc.serverapi.domain.entities.Documento;
 import com.hubdoc.serverapi.dto.DocumentoDTO;
+import com.hubdoc.serverapi.mappers.DocumentoMapper;
 import com.hubdoc.serverapi.repositories.DocumentoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,12 @@ public class DocumentoService {
     @Autowired
     private DocumentoRepository repository;
 
+    @Autowired
+    private DocumentoMapper mapper;
+
     @Transactional(readOnly = true)
     public Page<DocumentoDTO> findAll(Pageable pageable){
         Page<Documento> result = repository.findAll(pageable);
-        return result.map(DocumentoDTO::new);
+        return result.map(mapper::toDTO);
     }
 }
