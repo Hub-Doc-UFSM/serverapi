@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class EtapasRealizadas {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 
