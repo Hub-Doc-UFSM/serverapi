@@ -15,9 +15,5 @@ public class OrgaoDTO {
     private String nome;
     private String sigla;
 
-    public OrgaoDTO(Orgao entity) {
-        this.id = entity.getId();
-        this.nome = entity.getNome();
-        this.sigla = entity.getSigla();
-    }
+
 }
