@@ -14,24 +14,13 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ContratoMapper {
 
-    private final OrgaoRepository orgaoRepository;
-
     public Contrato toEntity(ContratoInputDTO dto) {
         if (dto == null) {
             return null;
         }
 
         Contrato entity = new Contrato();
-        entity.setCodigoContrato(dto.getCodigoContrato());
-        entity.setDataInicio(dto.getDataInicio());
-        entity.setAtivo(dto.getAtivo());
-
-        if (dto.getOrgaoId() != null) {
-            Orgao orgao = orgaoRepository.findById(dto.getOrgaoId())
-                    .orElseThrow(() -> new RuntimeException("Orgao not found with ID: " + dto.getOrgaoId()));
-            entity.setOrgao(orgao);
-        }
-
+        copyToEntity(dto, entity);
         return entity;
     }
 
@@ -62,11 +51,12 @@ public class ContratoMapper {
         entity.setCodigoContrato(dto.getCodigoContrato());
         entity.setDataInicio(dto.getDataInicio());
         entity.setAtivo(dto.getAtivo());
-
         if (dto.getOrgaoId() != null) {
-            Orgao orgao = orgaoRepository.findById(dto.getOrgaoId())
-                    .orElseThrow(() -> new RuntimeException("Orgao not found with ID: " + dto.getOrgaoId()));
-            entity.setOrgao(orgao);
+            Orgao orgaoDTO = new Orgao();
+            orgaoDTO.setId(dto.getOrgaoId());
+            entity.setOrgao(orgaoDTO);
+        } else {
+            entity.setOrgao(null);
         }
     }
 }
