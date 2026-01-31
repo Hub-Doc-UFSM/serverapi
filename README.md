@@ -24,7 +24,7 @@ Este projeto foi construído utilizando o que há de mais moderno no ecossistema
 
 Java 25: Utilizando as features mais recentes da linguagem para alta performance e segurança.
 
-Spring Boot 3.x: Framework base para agilidade no desenvolvimento e configuração.
+Spring Boot 4.0: Framework base para agilidade no desenvolvimento e configuração.
 
 Spring Data JPA: Abstração robusta para persistência de dados e ORM.
 
@@ -36,7 +36,7 @@ Lombok: Redução de boilerplate code (Getters, Setters, Builders).
 
 Bean Validation (Hibernate Validator): Validação de dados de entrada via anotações.
 
-MySQL: Banco de dados relacional escolhido pela consistência (ACID) necessária ao processo.
+PosgreSQL: Banco de dados relacional escolhido pela consistência (ACID) necessária ao processo.
 
 🏗 Arquitetura do Projeto
 
@@ -64,22 +64,23 @@ Java JDK 25 (Verifique se a variável de ambiente JAVA_HOME está configurada co
 
 Maven 3.8+ (Gerenciador de dependências).
 
-MySQL 8.0+ (Instância rodando localmente ou em container Docker).
+Postgre 18 (Instância rodando localmente ou em container Docker).
 
 ⚙️ Configuração e Instalação
 
 Clone o repositório:
 
-git clone [https://github.com/seu-usuario/sgrd-backend.git](https://github.com/seu-usuario/sgrd-backend.git)
-cd sgrd-backend
+git clone (https://github.com/Hub-Doc-UFSM/serverapi.git)
+cd serverapi
 
 
 Configuração do Banco de Dados:
 Edite o arquivo src/main/resources/application.properties com suas credenciais:
 
-spring.datasource.url=jdbc:mysql://localhost:3306/db_restauracao
-spring.datasource.username=seu_usuario
-spring.datasource.password=sua_senha
+spring.datasource.url=jdbc:postgresql://localhost:5432/sisrest_db
+spring.datasource.username=postgres
+spring.datasource.password=admin
+spring.datasource.driver-class-name=org.postgresql.Driver
 
 
 Compilação e Execução:
@@ -104,11 +105,9 @@ TECNICO / BOLSISTA: Podem executar etapas de restauração (banho, higienizaçã
 
 com.restauracao.sistema
 │
-├── config/          # Configurações de Segurança (JWT), Swagger, etc.
 ├── controller/      # REST Controllers
 ├── dto/             # Records ou Classes POJO para transferência de dados
-├── entity/          # Entidades JPA (@Entity)
-├── exception/       # Handlers globais de erro
+├── entity/          # Entidades JPA (@Entity)\
 ├── mapper/          # Interfaces de Mapeamento (MapStruct ou manual)
 ├── repository/      # Interfaces JpaRepository
 └── service/         # Regras de Negócio (@Service)
