@@ -18,9 +18,11 @@ import java.util.List;
 public class Contrato {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_seq")
+    @SequenceGenerator(name = "contrato_seq", sequenceName = "tb_contrato_seq", allocationSize = 1)
     @EqualsAndHashCode.Include
     private Long id;
+
     private String codigoContrato;
     private LocalDate dataInicio;
     private Boolean ativo;
