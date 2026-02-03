@@ -14,5 +14,5 @@ public class ContratoInputDTO {
     private String codigoContrato;
     private LocalDate dataInicio;
     private Boolean ativo;
-    private Long orgaoId; // Recebemos apenas o ID
+    private Long orgaoId;
 }

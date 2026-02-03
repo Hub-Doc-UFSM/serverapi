@@ -17,5 +17,5 @@ public class ContratoResponseDTO {
     private String codigoContrato;
     private LocalDate dataInicio;
     private Boolean ativo;
-    private OrgaoDTO orgao; // Objeto aninhado simplificado
+    private OrgaoDTO orgao;
 }
