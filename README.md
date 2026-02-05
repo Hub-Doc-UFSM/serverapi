@@ -1,6 +1,6 @@
 Sistema de Gestão de Restauração de Documentos (SGRD)
 
-📌 Sobre o Projeto
+ Sobre o Projeto
 
 O SGRD é uma solução de software desenvolvida para gerenciar e rastrear o processo de recuperação de documentos danificados, com foco principal em acervos atingidos por desastres naturais, como enchentes.
 
