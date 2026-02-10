@@ -1,6 +1,8 @@
 package com.hubdoc.serverapi.controllers;
 
 import com.hubdoc.serverapi.dto.OrgaoDTO;
+import com.hubdoc.serverapi.dto.contrato.ContratoResponseDTO;
+import com.hubdoc.serverapi.services.ContratoService;
 import com.hubdoc.serverapi.services.OrgaoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import java.net.URI;
 public class OrgaoController {
 
     private final OrgaoService service;
+    private final ContratoService contratoService;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<OrgaoDTO> findById(@PathVariable Long id){
@@ -46,5 +49,11 @@ public class OrgaoController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/contratos")
+    public ResponseEntity<Page<ContratoResponseDTO>> findContratosByOrgao(@PathVariable Long id, Pageable pageable) {
+        Page<ContratoResponseDTO> dto = contratoService.findByOrgao(id, pageable);
+        return ResponseEntity.ok(dto);
     }
 }

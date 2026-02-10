@@ -73,4 +73,13 @@ public class ContratoService {
             throw new RuntimeException("Não é possível excluir o contrato pois ele possui registros dependentes (Caixas ou Etapas).");
         }
     }
+
+    @Transactional(readOnly = true)
+    public Page<ContratoResponseDTO> findByOrgao(Long orgaoId, Pageable pageable) {
+        if (!orgaoRepository.existsById(orgaoId)) {
+            throw new EntityNotFoundException("Órgão não encontrado com ID: " + orgaoId);
+        }
+        Page<Contrato> list = repository.findByOrgaoId(orgaoId, pageable);
+        return list.map(mapper::toResponseDTO);
+    }
 }
