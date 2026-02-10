@@ -2,7 +2,9 @@ package com.hubdoc.serverapi.controllers;
 
 import com.hubdoc.serverapi.dto.caixa.CaixaInputDTO;
 import com.hubdoc.serverapi.dto.caixa.CaixaResponseDTO;
+import com.hubdoc.serverapi.dto.maco.MacoResponseDTO;
 import com.hubdoc.serverapi.services.CaixaService;
+import com.hubdoc.serverapi.services.MacoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/caixas")
@@ -18,6 +21,7 @@ import java.net.URI;
 public class CaixaController {
 
     private final CaixaService service;
+    private final MacoService macoService;
 
     @GetMapping
     public ResponseEntity<Page<CaixaResponseDTO>> findAll(Pageable pageable) {
@@ -53,5 +57,11 @@ public class CaixaController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/macos")
+    public ResponseEntity<List<MacoResponseDTO>> findMacosByCaixa(@PathVariable Long id) {
+        List<MacoResponseDTO> list = macoService.findByCaixa(id);
+        return ResponseEntity.ok(list);
     }
 }

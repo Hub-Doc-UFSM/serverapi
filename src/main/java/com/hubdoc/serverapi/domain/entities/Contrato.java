@@ -18,8 +18,7 @@ import java.util.List;
 public class Contrato {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato_seq")
-    @SequenceGenerator(name = "contrato_seq", sequenceName = "tb_contrato_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 

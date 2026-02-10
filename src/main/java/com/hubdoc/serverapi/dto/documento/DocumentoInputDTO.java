@@ -10,7 +10,6 @@ import lombok.*;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class DocumentoInputDTO {
 
-    private String uuid;
     private StatusGlobal statusGlobal;
     private Long macoId;
 

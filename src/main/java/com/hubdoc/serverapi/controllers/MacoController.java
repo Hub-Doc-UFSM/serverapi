@@ -1,7 +1,9 @@
 package com.hubdoc.serverapi.controllers;
 
+import com.hubdoc.serverapi.dto.documento.DocumentoResponseDTO;
 import com.hubdoc.serverapi.dto.maco.MacoInputDTO;
 import com.hubdoc.serverapi.dto.maco.MacoResponseDTO;
+import com.hubdoc.serverapi.services.DocumentoService;
 import com.hubdoc.serverapi.services.MacoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/macos")
@@ -18,6 +21,7 @@ import java.net.URI;
 public class MacoController {
 
     private final MacoService service;
+    private final DocumentoService documentoService;
 
     @GetMapping
     public ResponseEntity<Page<MacoResponseDTO>> findAll(Pageable pageable) {
@@ -53,5 +57,11 @@ public class MacoController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/documentos")
+    public ResponseEntity<List<DocumentoResponseDTO>> findDocumentosByMaco(@PathVariable Long id) {
+        List<DocumentoResponseDTO> list = documentoService.findByMaco(id);
+        return ResponseEntity.ok(list);
     }
 }

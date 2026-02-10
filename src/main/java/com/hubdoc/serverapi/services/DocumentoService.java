@@ -14,6 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +48,25 @@ public class DocumentoService {
             documento.setMaco(maco);
         }
         documento = repository.save(documento);
+
+        // Gera o UUID automático somente após ter o ID gerado
+        if (documento.getMaco() != null) {
+            String uuid = generateUuid(documento);
+            documento.setUuid(uuid);
+            documento = repository.save(documento);
+        }
+
         return mapper.toResponseDTO(documento);
+    }
+
+    private String generateUuid(Documento documento) {
+        String siglaOrgao = documento.getMaco().getCaixa().getContrato().getOrgao().getSigla();
+        Long idContrato = documento.getMaco().getCaixa().getContrato().getId();
+        Long idCaixa = documento.getMaco().getCaixa().getId();
+        Long idMaco = documento.getMaco().getId();
+        Long idDocumento = documento.getId();
+
+        return String.format("%s-%d-%d-%d-%d", siglaOrgao, idContrato, idCaixa, idMaco, idDocumento);
     }
 
     @Transactional
@@ -74,5 +95,14 @@ public class DocumentoService {
         } catch (org.springframework.dao.DataIntegrityViolationException e) {
             throw new RuntimeException("Não é possível excluir o documento pois ele possui registros dependentes.");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<DocumentoResponseDTO> findByMaco(Long macoId) {
+        if (!macoRepository.existsById(macoId)) {
+            throw new EntityNotFoundException("Maço não encontrado com ID: " + macoId);
+        }
+        List<Documento> list = repository.findByMacoId(macoId);
+        return list.stream().map(mapper::toResponseDTO).collect(Collectors.toList());
     }
 }

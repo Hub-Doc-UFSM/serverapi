@@ -41,7 +41,6 @@ public class DocumentoMapper {
     }
 
     public void copyToEntity(DocumentoInputDTO dto, Documento entity) {
-        entity.setUuid(dto.getUuid());
         entity.setStatusGlobal(dto.getStatusGlobal());
 
         if (dto.getMacoId() != null) {

@@ -14,6 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class MacoService {
@@ -73,5 +76,14 @@ public class MacoService {
         } catch (org.springframework.dao.DataIntegrityViolationException e) {
             throw new RuntimeException("Não é possível excluir o maço pois ele possui registros dependentes.");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<MacoResponseDTO> findByCaixa(Long caixaId) {
+        if (!caixaRepository.existsById(caixaId)) {
+            throw new EntityNotFoundException("Caixa não encontrada com ID: " + caixaId);
+        }
+        List<Maco> list = repository.findByCaixaId(caixaId);
+        return list.stream().map(mapper::toResponseDTO).collect(Collectors.toList());
     }
 }
