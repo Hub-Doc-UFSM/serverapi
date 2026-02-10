@@ -3,6 +3,8 @@ package com.hubdoc.serverapi.controllers;
 import com.hubdoc.serverapi.dto.contrato.ContratoInputDTO;
 import com.hubdoc.serverapi.dto.contrato.ContratoResponseDTO;
 import com.hubdoc.serverapi.services.ContratoService;
+import com.hubdoc.serverapi.dto.caixa.CaixaResponseDTO;
+import com.hubdoc.serverapi.services.CaixaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/contratos")
@@ -18,6 +21,7 @@ import java.net.URI;
 public class ContratoController {
 
     private final ContratoService service;
+    private final CaixaService caixaService;
 
     @GetMapping
     public ResponseEntity<Page<ContratoResponseDTO>> findAll(Pageable pageable) {
@@ -53,5 +57,11 @@ public class ContratoController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/caixas")
+    public ResponseEntity<List<CaixaResponseDTO>> findCaixasByContrato(@PathVariable Long id) {
+        List<CaixaResponseDTO> list = caixaService.findByContrato(id);
+        return ResponseEntity.ok(list);
     }
 }

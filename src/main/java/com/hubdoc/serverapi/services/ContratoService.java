@@ -14,6 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class ContratoService {
@@ -75,11 +78,11 @@ public class ContratoService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ContratoResponseDTO> findByOrgao(Long orgaoId, Pageable pageable) {
+    public List<ContratoResponseDTO> findByOrgao(Long orgaoId) {
         if (!orgaoRepository.existsById(orgaoId)) {
             throw new EntityNotFoundException("Órgão não encontrado com ID: " + orgaoId);
         }
-        Page<Contrato> list = repository.findByOrgaoId(orgaoId, pageable);
-        return list.map(mapper::toResponseDTO);
+        List<Contrato> list = repository.findByOrgaoId(orgaoId);
+        return list.stream().map(mapper::toResponseDTO).collect(Collectors.toList());
     }
 }

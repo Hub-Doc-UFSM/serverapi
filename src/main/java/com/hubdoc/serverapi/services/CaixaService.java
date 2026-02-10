@@ -14,6 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CaixaService {
@@ -73,5 +76,14 @@ public class CaixaService {
         } catch (org.springframework.dao.DataIntegrityViolationException e) {
             throw new RuntimeException("Não é possível excluir a caixa pois ela possui registros dependentes (Maços).");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<CaixaResponseDTO> findByContrato(Long contratoId) {
+        if (!contratoRepository.existsById(contratoId)) {
+            throw new EntityNotFoundException("Contrato não encontrado com ID: " + contratoId);
+        }
+        List<Caixa> list = repository.findByContratoId(contratoId);
+        return list.stream().map(mapper::toResponseDTO).collect(Collectors.toList());
     }
 }

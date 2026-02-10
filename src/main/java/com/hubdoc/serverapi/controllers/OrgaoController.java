@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/orgaos")
@@ -52,8 +53,8 @@ public class OrgaoController {
     }
 
     @GetMapping(value = "/{id}/contratos")
-    public ResponseEntity<Page<ContratoResponseDTO>> findContratosByOrgao(@PathVariable Long id, Pageable pageable) {
-        Page<ContratoResponseDTO> dto = contratoService.findByOrgao(id, pageable);
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<List<ContratoResponseDTO>> findContratosByOrgao(@PathVariable Long id) {
+        List<ContratoResponseDTO> list = contratoService.findByOrgao(id);
+        return ResponseEntity.ok(list);
     }
 }
