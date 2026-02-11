@@ -40,4 +40,4 @@ VALUES (13, 'PM-ASFALTO-050', '2023-12-01', true, 7);
 INSERT INTO tb_contrato (id, codigo_contrato, data_inicio, ativo, orgao_id)
 VALUES (14, 'PM-ILUMINACAO-022', '2024-01-20', true, 7);
 
-ALTER SEQUENCE tb_contrato_seq RESTART WITH 15;
+ALTER SEQUENCE sisrest.tb_contrato_id_seq RESTART WITH 15;
