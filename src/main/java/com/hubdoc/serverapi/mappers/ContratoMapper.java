@@ -3,10 +3,10 @@ package com.hubdoc.serverapi.mappers;
 
 import com.hubdoc.serverapi.domain.entities.Contrato;
 import com.hubdoc.serverapi.domain.entities.Orgao;
-import com.hubdoc.serverapi.dto.OrgaoDTO;
+import com.hubdoc.serverapi.dto.orgao.OrgaoResponseDTO;
 import com.hubdoc.serverapi.dto.contrato.ContratoInputDTO;
 import com.hubdoc.serverapi.dto.contrato.ContratoResponseDTO;
-import com.hubdoc.serverapi.repositories.OrgaoRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -36,12 +36,12 @@ public class ContratoMapper {
         dto.setAtivo(entity.getAtivo());
 
         if (entity.getOrgao() != null) {
-            OrgaoDTO orgaoDTO = new OrgaoDTO();
-            orgaoDTO.setId(entity.getOrgao().getId());
-            orgaoDTO.setNome(entity.getOrgao().getNome());
-            orgaoDTO.setSigla(entity.getOrgao().getSigla());
+            OrgaoResponseDTO orgaoResponseDTO = new OrgaoResponseDTO();
+            orgaoResponseDTO.setId(entity.getOrgao().getId());
+            orgaoResponseDTO.setNome(entity.getOrgao().getNome());
+            orgaoResponseDTO.setSigla(entity.getOrgao().getSigla());
 
-            dto.setOrgao(orgaoDTO);
+            dto.setOrgao(orgaoResponseDTO);
         }
 
         return dto;

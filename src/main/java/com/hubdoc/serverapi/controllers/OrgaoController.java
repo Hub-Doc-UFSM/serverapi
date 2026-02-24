@@ -1,6 +1,7 @@
 package com.hubdoc.serverapi.controllers;
 
-import com.hubdoc.serverapi.dto.OrgaoDTO;
+import com.hubdoc.serverapi.dto.orgao.OrgaoInputDTO;
+import com.hubdoc.serverapi.dto.orgao.OrgaoResponseDTO;
 import com.hubdoc.serverapi.dto.contrato.ContratoResponseDTO;
 import com.hubdoc.serverapi.services.ContratoService;
 import com.hubdoc.serverapi.services.OrgaoService;
@@ -24,26 +25,26 @@ public class OrgaoController {
     private final ContratoService contratoService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<OrgaoDTO> findById(@PathVariable Long id){
-        OrgaoDTO dto = service.findById(id);
+    public ResponseEntity<OrgaoResponseDTO> findById(@PathVariable Long id){
+        OrgaoResponseDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping
-    public ResponseEntity<Page<OrgaoDTO>> findAll(Pageable pageable) {
-        Page<OrgaoDTO> dto = service.findAll(pageable);
+    public ResponseEntity<Page<OrgaoResponseDTO>> findAll(Pageable pageable) {
+        Page<OrgaoResponseDTO> dto = service.findAll(pageable);
         return ResponseEntity.ok(dto);
     }
     @PostMapping
-    public ResponseEntity<OrgaoDTO> insert(@Valid @RequestBody OrgaoDTO dto) {
-        OrgaoDTO newDto = service.insert(dto);
+    public ResponseEntity<OrgaoResponseDTO> insert(@Valid @RequestBody OrgaoInputDTO dto) {
+        OrgaoResponseDTO newDto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newDto.getId()).toUri();
         return ResponseEntity.created(uri).body(newDto);
     }
     @PutMapping(value = "/{id}")
-    public ResponseEntity<OrgaoDTO> update(@PathVariable Long id, @Valid @RequestBody OrgaoDTO dto) {
-        OrgaoDTO newDto = service.update(id, dto);
+    public ResponseEntity<OrgaoResponseDTO> update(@PathVariable Long id, @Valid @RequestBody OrgaoInputDTO dto) {
+        OrgaoResponseDTO newDto = service.update(id, dto);
         return ResponseEntity.ok(newDto);
     }
     @DeleteMapping(value = "/{id}")

@@ -1,7 +1,8 @@
 package com.hubdoc.serverapi.services;
 
 import com.hubdoc.serverapi.domain.entities.Orgao;
-import com.hubdoc.serverapi.dto.OrgaoDTO;
+import com.hubdoc.serverapi.dto.orgao.OrgaoInputDTO;
+import com.hubdoc.serverapi.dto.orgao.OrgaoResponseDTO;
 import com.hubdoc.serverapi.mappers.OrgaoMapper;
 import com.hubdoc.serverapi.repositories.OrgaoRepository;
 import com.hubdoc.serverapi.services.exceptions.ResourceNotFoundException;
@@ -21,32 +22,32 @@ public class OrgaoService {
     private final OrgaoMapper mapper;
 
     @Transactional(readOnly = true)
-    public OrgaoDTO findById(Long id) {
+    public OrgaoResponseDTO findById(Long id) {
         Orgao orgao = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Id do Orgão não encontrado!")
         );
-        return mapper.toDTO(orgao);
+        return mapper.toResponseDTO(orgao);
     }
     @Transactional(readOnly = true)
-    public Page<OrgaoDTO> findAll(Pageable pageable){
+    public Page<OrgaoResponseDTO> findAll(Pageable pageable){
         Page<Orgao> result = repository.findAll(pageable);
-        return result.map(mapper::toDTO);
+        return result.map(mapper::toResponseDTO);
     }
     @Transactional
-    public OrgaoDTO insert(OrgaoDTO dto) {
+    public OrgaoResponseDTO insert(OrgaoInputDTO dto) {
         Orgao orgao = mapper.toEntity(dto);
         orgao = repository.save(orgao);
-        return mapper.toDTO(orgao);
+        return mapper.toResponseDTO(orgao);
     }
 
     @Transactional
-    public OrgaoDTO update(Long id, OrgaoDTO dto) {
+    public OrgaoResponseDTO update(Long id, OrgaoInputDTO dto) {
         Orgao orgao = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Id do Orgão não encontrado!")
         );
         mapper.updateEntity(dto, orgao);
         orgao = repository.save(orgao);
-        return mapper.toDTO(orgao);
+        return mapper.toResponseDTO(orgao);
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)

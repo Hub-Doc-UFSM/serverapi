@@ -1,6 +1,6 @@
 package com.hubdoc.serverapi.dto.contrato;
 
-import com.hubdoc.serverapi.dto.OrgaoDTO;
+import com.hubdoc.serverapi.dto.orgao.OrgaoResponseDTO;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -17,5 +17,5 @@ public class ContratoResponseDTO {
     private String codigoContrato;
     private LocalDate dataInicio;
     private Boolean ativo;
-    private OrgaoDTO orgao;
+    private OrgaoResponseDTO orgao;
 }

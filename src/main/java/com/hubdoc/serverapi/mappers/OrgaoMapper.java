@@ -1,37 +1,37 @@
 package com.hubdoc.serverapi.mappers;
 
 import com.hubdoc.serverapi.domain.entities.Orgao;
-import com.hubdoc.serverapi.dto.OrgaoDTO;
+import com.hubdoc.serverapi.dto.orgao.OrgaoInputDTO;
+import com.hubdoc.serverapi.dto.orgao.OrgaoResponseDTO;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OrgaoMapper {
 
-    public OrgaoDTO toDTO(Orgao entity) {
+    public OrgaoResponseDTO toResponseDTO(Orgao entity) {
         if (entity == null) {
             return null;
         }
 
-        OrgaoDTO dto = new OrgaoDTO();
+        OrgaoResponseDTO dto = new OrgaoResponseDTO();
         dto.setId(entity.getId());
         dto.setNome(entity.getNome());
         dto.setSigla(entity.getSigla());
 
         return dto;
     }
-    public Orgao toEntity(OrgaoDTO dto) {
+    public Orgao toEntity(OrgaoInputDTO dto) {
         if (dto == null) {
             return null;
         }
 
         Orgao entity = new Orgao();
-        entity.setId(dto.getId());
         entity.setNome(dto.getNome());
         entity.setSigla(dto.getSigla());
 
         return entity;
     }
-    public void updateEntity(OrgaoDTO dto, Orgao entity) {
+    public void updateEntity(OrgaoInputDTO dto, Orgao entity) {
         if (dto == null || entity == null) {
             return;
         }
